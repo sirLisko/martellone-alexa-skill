@@ -1,0 +1,100 @@
+service:
+  name: martelloneskill
+# app and org for use with dashboard.serverless.com
+app: ${env:APPNAME}
+org: ${env:ORGNAME}
+
+plugins:
+  - serverless-webpack
+  - serverless-alexa-skills
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+
+custom:
+  alexa:
+    skills:
+      - id: ${env:SKILLID}
+        manifest:
+          publishingInformation:
+            category: NOVELTY
+            isAvailableWorldwide: true
+            distributionMode: PUBLIC
+            testingInstructions: Nothing specifical, it just plays an audio
+            locales:
+              en-GB:
+                name: Martellone
+                description: If you watched Boris (Italian TV Shows) you know what this is about :)
+                examplePhrases:
+                  - Alexa, ask Martellone what does he think about it
+                keywords:
+                  - boris
+                  - martellone
+                  - sticazzi
+                summary: Ask Boris' Martellone what does he think about stuff
+                smallIconUri: https://github.com/sirLisko/martellone-alexa-skill/raw/master/icons/martellone-icon-small.png
+                largeIconUri: https://github.com/sirLisko/martellone-alexa-skill/raw/master/icons/martellone-icon.png
+              it-IT:
+                name: Martellone
+                description: Skill pensata per tutti gli amanti di Nando Martellone, interpretato dal mitico Massimiliano Bruno, nella serie TV Boris.
+                examplePhrases:
+                  - Alexa, chiedi a Martellone cosa ne pensa
+                keywords:
+                  - boris
+                  - martellone
+                  - sticazzi
+                summary: Chiedi a Martellone cosa ne pensa
+                smallIconUri: https://github.com/sirLisko/martellone-alexa-skill/raw/master/icons/martellone-icon-small.png
+                largeIconUri: https://github.com/sirLisko/martellone-alexa-skill/raw/master/icons/martellone-icon.png
+          privacyAndCompliance:
+            allowsPurchases: false
+            usesPersonalInfo: false
+            isChildDirected: false
+            isExportCompliant: true
+            containsAds: false
+          apis:
+            custom:
+              endpoint:
+                uri: ${env.ARNLAMBDA}
+          manifestVersion: "1.0"
+        models:
+          en-GB:
+            interactionModel:
+              languageModel:
+                invocationName: martellone what
+                intents:
+                  - name: StiCazziIntent
+                    samples:
+                      - do you think about this
+                      - do you think about it
+                      - does he think about this
+                      - does he think about it
+                      - do you think
+                      - does he think
+                      - you think
+                      - is his opinion
+                  - name: AMAZON.StopIntent
+          it-IT:
+            interactionModel:
+              languageModel:
+                invocationName: a martellone
+                intents:
+                  - name: StiCazziIntent
+                    samples:
+                      - un parere
+                      - un pensiero
+                      - un'opinione
+                      - un commento
+                      - cosa ne pensi di questa cosa
+                      - cosa ne pensi di questo
+                      - cosa ne pensi
+                      - cosa ne pensa di questa cosa
+                      - cosa ne pensa
+                  - name: AMAZON.StopIntent
+
+functions:
+  alexa:
+    handler: handler.alexa
+    events:
+      - alexaSkill: ${self:custom.alexa.skills.0.id}

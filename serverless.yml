@@ -1,8 +1,7 @@
 service:
   name: martelloneskill
-# app and org for use with dashboard.serverless.com
-app: ${env:APPNAME}
-org: ${env:ORGNAME}
+app: martellone
+org: sirlisko
 
 plugins:
   - serverless-webpack
@@ -11,11 +10,15 @@ plugins:
 provider:
   name: aws
   runtime: nodejs12.x
+  region: eu-west-1
 
 custom:
   alexa:
+    # Step 1: Run `sls alexa auth` to authenticate
+    # Step 2: Run `sls alexa create --name "Martellone Boris" --locale en-GB --type custom` to create a new skill
     skills:
-      - id: ${env:SKILLID}
+      # Step 3: Paste the skill id returned by the create command here:
+      # - id: amzn1.ask.skill.xxxx-xxxx-xxxx-xxxx-xxxx
         manifest:
           publishingInformation:
             category: NOVELTY
@@ -24,7 +27,7 @@ custom:
             testingInstructions: Nothing specifical, it just plays an audio
             locales:
               en-GB:
-                name: Martellone
+                name: Martellone Boris
                 description: If you watched Boris (Italian TV Shows) you know what this is about :)
                 examplePhrases:
                   - Alexa, ask Martellone what does he think about it
@@ -32,19 +35,19 @@ custom:
                   - boris
                   - martellone
                   - sticazzi
-                summary: Ask Boris' Martellone what does he think about stuff
+                summary: Ask Boris' Martellone what does he think about stuff. He will reply with his most famous punch line.
                 smallIconUri: https://github.com/sirLisko/martellone-alexa-skill/raw/master/icons/martellone-icon-small.png
                 largeIconUri: https://github.com/sirLisko/martellone-alexa-skill/raw/master/icons/martellone-icon.png
               it-IT:
-                name: Martellone
+                name: Martellone Boris
                 description: Skill pensata per tutti gli amanti di Nando Martellone, interpretato dal mitico Massimiliano Bruno, nella serie TV Boris.
                 examplePhrases:
-                  - Alexa, chiedi a Martellone cosa ne pensa
+                  - Alexa, domanda a Nando Martellone cosa ne pensa
                 keywords:
                   - boris
                   - martellone
                   - sticazzi
-                summary: Chiedi a Martellone cosa ne pensa
+                summary: Chiedi a Martellone cosa ne pensa, ti risponderà cosa la sua più tipica delle espressioni
                 smallIconUri: https://github.com/sirLisko/martellone-alexa-skill/raw/master/icons/martellone-icon-small.png
                 largeIconUri: https://github.com/sirLisko/martellone-alexa-skill/raw/master/icons/martellone-icon.png
           privacyAndCompliance:
@@ -56,7 +59,12 @@ custom:
           apis:
             custom:
               endpoint:
-                uri: ${env.ARNLAMBDA}
+                # Step 4: Do your first deploy of your Serverless stack
+                # Step 5: Paste the ARN of your lambda here:
+                # uri: arn:aws:lambda:[region]:[account-id]:function:[function-name]
+                # Step 6: Run `sls alexa update` to deploy the skill manifest
+                # Step 7: Run `sls alexa build` to build the skill interaction model
+                # Step 8: Enable the skill in the Alexa app to start testing.
           manifestVersion: "1.0"
         models:
           en-GB:
@@ -78,7 +86,7 @@ custom:
           it-IT:
             interactionModel:
               languageModel:
-                invocationName: a martellone
+                invocationName: nando martellone
                 intents:
                   - name: StiCazziIntent
                     samples:

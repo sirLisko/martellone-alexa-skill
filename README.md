@@ -6,6 +6,12 @@
 
 Skill created as a tribute to the mythological [Nando Martellone](https://www.youtube.com/watch?v=l0kKxkulOiI), character of the TV Show [Boris](<https://en.wikipedia.org/wiki/Boris_(TV_series)>).
 
+## Link to the Store
+
+### [Amazon UK](https://www.amazon.co.uk/sirLisko-Martellone-Boris/dp/B08C7SHW3T/)
+
+### [Amazon IT](https://www.amazon.it/sirLisko-Martellone-Boris/dp/B08C7SHW3T/)
+
 ## Preliminary Steps
 
 Install node dependencies
